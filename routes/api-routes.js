@@ -27,11 +27,11 @@ router.post("/api/workouts", (req, res) => {
 
 //PUT (update) route
 router.put("/api/workouts/:id", ({body, params}, res) => {
-    db.Workout.findbyIDAndUpdate(
-        params.id,
+    db.Workout.updateOne(
+        {_id:params.id},
         {
             $push: {
-                exercise: body
+                exercises: body
             }
         },
         {
@@ -47,7 +47,7 @@ router.put("/api/workouts/:id", ({body, params}, res) => {
 })
 
 //GET route for 7 day workout range
-outer.get("/api/workouts/range", (req, res) => {
+router.get("/api/workouts/range", (req, res) => {
     db.Workout.find({})
       .limit(7)
       .then((result) => {
